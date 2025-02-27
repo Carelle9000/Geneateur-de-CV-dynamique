@@ -206,46 +206,38 @@ if (photoInput) {
     });
 }
 
-// Fonction pour ajouter une formation
 window.ajouterFormation = function () {
-    console.log('Ajouter une formation'); // Debug
-    const formData = new FormData(document.getElementById("formation"));
     const diplome = document.getElementById("diplome").value;
     const etablissement = document.getElementById("Etablissement").value;
     const anneeObtention = document.getElementById("anneeob").value;
 
-    if (diplome.trim() !== "" && etablissement.trim() !== "" && anneeObtention) {
+    if (diplome && etablissement && anneeObtention) {
         const id = Date.now().toString();
-
         const li = document.createElement("li");
         li.className = "list-group-item";
         li.dataset.id = id;
         li.innerHTML = `
-            <div class="formation-item">
-                <span class="formation-nom">${diplome}</span>
-                <div class="formation-etablissement">${etablissement}</div>
-                <div class="formation-annee">${anneeObtention}</div>
+            <div>
+                <strong>${diplome}</strong> - ${etablissement} (${anneeObtention})
             </div>
             <button class="btn btn-danger btn-sm float-end" onclick="supprimerFormation('${id}')">❌</button>
         `;
-
+        
         listeFormations.appendChild(li);
 
         const liSansBouton = li.cloneNode(true);
         liSansBouton.querySelector("button").remove();
         liSansBouton.dataset.id = id;
-        cvFormations.appendChild(liSansBouton);
-
+        cvFormation.appendChild(liSansBouton);
+        /*
         document.getElementById("diplome").value = "";
         document.getElementById("Etablissement").value = "";
         document.getElementById("anneeob").value = "";
-        
-
+        */
         // Mettre à jour le CV et le local storage
         updateCV({ target: {} });
     }
 };
-
 // Fonction pour supprimer une formation
 window.supprimerFormation = function (id) {
     console.log('Supprimer une formation :', id); // Debug
@@ -304,7 +296,7 @@ window.ajouterCentreInteret = function () {
         const liSansBouton = li.cloneNode(true);
         liSansBouton.querySelector("button").remove();
         liSansBouton.dataset.id = id;
-        cvCentresInteret.appendChild(liSansBouton);
+        cvCentreInteret.appendChild(liSansBouton);
 
         document.getElementById("loisir").value = "";
        
@@ -472,7 +464,7 @@ if (cvReferences) {
 // Fonction pour ajouter une expérience professionnelle
 window.ajouterExperience = function () {
     console.log('Ajouter une expérience professionnelle'); // Debug
-    const formData = new FormData(document.getElementById("experience"));
+
     const nomEntreprise = document.getElementById("Nentreprise").value;
     const posteOccupe = document.getElementById("posteocc").value;
     const dateDebut = document.getElementById("datedebut").value;
@@ -494,24 +486,17 @@ window.ajouterExperience = function () {
             </div>
             <button class="btn btn-danger btn-sm float-end" onclick="supprimerExperience('${id}')">❌</button>
         `;
-        document.getElementById("listeExperiences").appendChild(li);
-        const cvLi = li.cloneNode(true);
-        cvLi.querySelector("button").remove(); // Retirer le bouton pour le CV
-        document.getElementById("cvExperiences").appendChild(cvLi);
 
-        // Réinitialiser les champs
-        document.getElementById("Nentreprise").value = "";
-        document.getElementById("posteocc").value = "";
-        document.getElementById("datedebut").value = "";
-        document.getElementById("datefin").value = "";
-        document.getElementById("mission").value = "";
-    } else {
-        console.log("Veuillez remplir tous les champs."); // Debug
-    }
+        listeExperiences.appendChild(li);
+        const cvExperiences = document.getElementById("cvExperiences")
+        const liSansBouton = li.cloneNode(true);
+        liSansBouton.querySelector("button").remove();
+        liSansBouton.dataset.id = id;
+        cvExperiences.appendChild(liSansBouton);
 
         // Mettre à jour le CV et le local storage
         updateCV({ target: {} });
-    
+    }
 };
 
 // Fonction pour supprimer une expérience professionnelle
@@ -531,21 +516,6 @@ window.supprimerExperience = function (id) {
     // Mettre à jour le CV et le local storage
     updateCV({ target: {} });
 };
-// Mettre à jour les expériences professionnelles dans le CV
-const cvExperiences = document.getElementById('cvExperiences');
-if (cvExperiences) {
-    cvExperiences.innerHTML = formData.experiences.map(experience => `
-        <li class="list-group-item">
-            <div class="experience-item">
-                <span class="experience-entreprise">${experience.entreprise}</span>
-                <div class="experience-poste">${experience.poste}</div>
-                <div class="experience-date">${experience.dateDebut} - ${experience.dateFin}</div>
-                <div class="experience-mission">${experience.mission}</div>
-            </div>
-        </li>
-    `).join('');
-}
-
 // Fonction pour ajouter une langue
 window.ajouterLangue = function () {
     console.log('Ajouter une langue'); // Debug
