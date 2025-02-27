@@ -1,17 +1,18 @@
 body {
     font-family: 'Georgia', serif;
-    background-color: #f8f9fa;
+    background-color: #44484de7;
     margin: 0;
     padding: 0;
     color: #333;
     display: flex;
+    gap: 1px;
     /*justify-content: flex-end;  Aligner à droite */
     align-items: flex-start; /* Aligner en haut */
     min-height: 100vh;
 }
 
 .contenu-global {
-    width: 90%; /* 60% de la largeur de l'écran */
+    width: 100%; /* 60% de la largeur de l'écran */
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -161,8 +162,14 @@ ul li {
     width: 50%;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: -10px;
 }
 
+.cv-template{
+    width: 50%;
+    margin-top: 68px;
+    box-shadow: #2c3e50;
+}
 .pos_plus{
     margin: auto;
     margin: 15%;
